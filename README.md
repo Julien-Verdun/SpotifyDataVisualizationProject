@@ -43,3 +43,9 @@ This file includes for every songs listened a list of features (float values) su
 ### Data normalization
 
 The jupyteer notebook `my_spotify_data_enrichment.ipynb` allows you to normalize the data. It creates a json file `{folder}/track_data_normalized.json`. Make sure you set the right folder's name.
+
+## Data Visualization
+
+D3.js and Observable
+
+Put the links of the notebook observable
