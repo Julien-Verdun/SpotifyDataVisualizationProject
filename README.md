@@ -50,6 +50,30 @@ This file includes for every songs listened a list of features (float values) su
 
 The jupyteer notebook `my_spotify_data_enrichment.ipynb` allows you to normalize the data. It creates a json file `{folder}/track_data_normalized.json`. Make sure you set the right folder's name.
 
+## Spotify data exploration
+
+The visualization below are some D3.js visualization around user data.
+
+A **pie chart** with user nummber of listening per artists.
+
+![pie_chart](Exploration_demonstration/pie_chart.PNG)
+
+A stacked chart with user number of listening and listening time over the days.
+
+![stack_chart](Exploration_demonstration/stack_chart.PNG)
+
+A chart with the user listening repartition per artists and then per musics.
+
+![treemap_chart](Exploration_demonstration/treemap_chart.PNG)
+
+A chart with the features distribution (energy, accousticness, danceability, etc) for a given song.
+
+![spider_chart](Exploration_demonstration/spider_chart.PNG)
+
+A chart with the distribution of the user listened song over all music features.
+
+![parallel_chart](Exploration_demonstration/parallel_chart.PNG)
+
 ## Recommendation
 
 This part describes the use of Spotify data to make **music recommendations** for Spotify users depending on their streaming history.
@@ -86,6 +110,16 @@ Both json file `songs_json.json` and `user_songs_json.json` are used to create a
 ### Visualization
 
 The idea of the visualization is to allow to the user to represent the music he listened to among other songs. Then the user can look for a particular song or simply wander the visualization, and find the songs similar to the song he listened to.
+
+#### Graph representation
+
+A first chart was created with this [Observable notebook](https://observablehq.com/@julien-verdun/spotify-music-suggestions?collection=@julien-verdun/spotifydatavisualizationproject). It representes the clusters and sub-clusters for a few songs of the Kaggle dataset.
+
+We can read on this graph the songs that are similar in terms of features' distance.
+
+![tree_chart](Recommendation/tree_chart.PNG)
+
+#### Scatter plot representation
 
 The Figure below is a representation of a part of the user data (white circles) among a part of the Kaggle clustered data.
 
