@@ -12,12 +12,10 @@ https://towardsdatascience.com/get-your-spotify-streaming-history-with-python-d5
 Spotify data places on the folder MyData
 """
 
-folder = "Julien"
 
+def get_streamings(path: str = 'MyData/User1') -> List[dict]:
 
-def get_streamings(path: str = 'MyData/Julien') -> List[dict]:
-
-    files = ['MyData/Julien/' + x for x in listdir(path)
+    files = [path + '/' + x for x in listdir(path)
              if x.split('.')[0][:-1] == 'StreamingHistory']
 
     all_streamings = []
@@ -73,21 +71,48 @@ def get_features(track_id: str, token: str) -> dict:
         return None
 
 
-streamings = get_streamings()
-streamings = streamings[0:1]
+def get_recommendations(track_names, token):
+    headers = {
+        'Authorization': f'Bearer ' + token
+    }
+    params = [('seed_tracks', ",".join(track_names)),
+              ('seed_artists', ",".join([])), ('seed_genres', ",".join([]))]
+    try:
+        response = requests.get('https://api.spotify.com/v1/recommendations',
+                                headers=headers, params=params, timeout=5)
+        json = response.json()
+        recommendations = []
+        for track in json["tracks"]:
+            recommendations.append(track["id"])
+        return recommendations
+    except:
+        return None
+
+
+folder_path = 'MyData/User2'
+target_path = 'ProcessedData/User2'
+streamings = get_streamings(folder_path)
+# streamings = streamings[0:1]
 unique_tracks = list(set([streaming['trackName']
                           for streaming in streamings]))
 
 all_features = {}
+all_recommendations = {}
 for track in unique_tracks:
     [track_id, track_artist, track_album, popularity] = get_id(track, token)
     features = get_features(track_id, token)
     if features:
+        features["id"] = track_id
         features["artist"] = track_artist
         features["album"] = track_album
         features["popularity"] = popularity
         all_features[track] = features
+        all_recommendations[track_id] = get_recommendations([track_id], token)
 
 
-with open(folder + '/track_data.json', 'w') as outfile:
+with open(target_path + '/track_data.json', 'w') as outfile:
     json.dump(all_features, outfile)
+
+
+with open(target_path + '/recommendations.json', 'w') as outfile:
+    json.dump(all_recommendations, outfile)
