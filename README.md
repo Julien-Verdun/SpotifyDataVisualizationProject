@@ -29,6 +29,8 @@ The data are stored on the `MyData` folder. There are one folder per user and se
 
 You need a Spotify Developer Account in order to make some requests to the Spotify API. You can create one with the following link [Spotify Developer Account](https://developer.spotify.com/).
 
+Make sure to create a new application, you will need your application keys for the following steps.
+
 ### Features extraction
 
 Create a json file `my_spotify_dev_account.json` on this folder with the keys and values :
@@ -51,7 +53,7 @@ Required Python libraries :
 - pandas
 - ...
 
-Then, open a command line, make sure you have Python installed with all the required libraries (cf the list above) and run the following command line :
+Then, open a command line, make sure you have Python installed with all the required libraries (cf the list above) and add the redirect_uti `http://localhost:7777/callback` in the white-listed redirect-URI list in your app settings. Then run the following command line :
 
 ```
 python my_spotify_history_enrichment.py data_folder processed_data_folder
